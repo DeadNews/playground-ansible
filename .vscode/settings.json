@@ -1,0 +1,20 @@
+// Workspace settings override user settings.
+{
+  "files.associations": {
+    "**/handlers/*.yml": "ansible",
+    "**/meta/*.yml": "ansible",
+    "**/molecule/**/*.yml": "ansible",
+    "**/playbooks/**/*.yml": "ansible",
+    "**/roles/**/*.yml": "ansible",
+    "**/tasks/**/*.yml": "ansible",
+    ".ansible-lint": "yaml",
+    "ansible.cfg": "properties"
+  },
+  "[ansible]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "ansible.ansible.reuseTerminal": true,
+  // pytest
+  "python.testing.pytestEnabled": true
+}

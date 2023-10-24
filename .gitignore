@@ -1,0 +1,24 @@
+# ansible
+.ansible-retry
+.facts_cache/
+.vault.key
+*.retry
+artifacts/
+vault.key
+
+# Unit test / coverage reports
+.cache
+.pytest_cache
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets

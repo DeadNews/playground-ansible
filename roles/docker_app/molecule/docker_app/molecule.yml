@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: jammy
+    box: ubuntu/jammy64
+    config_options:
+      vm.boot_timeout: 600
+    memory: 1024
+
+# provisioner:
+#   playbooks:
+#     create: ../../../../molecule/playbooks/create.yml
+#     destroy: ../../../../molecule/playbooks/destroy.yml
+#     prepare: ../../../../molecule/playbooks/prepare.yml
+
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      # Inventory used for Molecule when executing the Ansible role tested.
+      instance:
+        variable1: value

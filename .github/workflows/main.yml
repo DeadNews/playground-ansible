@@ -1,0 +1,69 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [created]
+
+permissions:
+  contents: read
+
+env:
+  PY_COLORS: "1"
+
+jobs:
+  lint:
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Install ansible-galaxy deps
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Lint code
+        run: poetry run ansible-lint
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        molecule-image: [python]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Install ansible-galaxy deps
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Run docker info
+        run: docker info
+
+      - name: Run tests
+        run: poetry run pytest
+        env:
+          MOLECULE_IMAGE: ${{ matrix.molecule-image }}
