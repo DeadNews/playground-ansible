@@ -15,6 +15,6 @@
     docker_compose_project: docker-app
     docker_compose_env: files/.env
     docker_compose_source: files/docker-compose.yml
-    docker_compose_target_dir: /opt/docker-compose
+    docker_compose_target_dir: ~/docker-compose
     docker_compose_verify_urls:
       - http://127.0.0.1:1271/health

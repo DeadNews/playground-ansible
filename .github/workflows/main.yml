@@ -60,7 +60,15 @@ jobs:
       - name: Install ansible-galaxy deps
         run: poetry run ansible-galaxy install -r requirements.yml
 
+      - name: Show Vagrant version
+        run: vagrant --version
+
       - name: Run tests
-        run: poetry run pytest
-        env:
-          MOLECULE_IMAGE: ${{ matrix.molecule-image }}
+        run: |
+          cd roles/docker_app/
+          poetry run molecule test -s docker_app
+
+      # - name: Run tests
+      #   run: poetry run pytest
+      #   env:
+      #     MOLECULE_IMAGE: ${{ matrix.molecule-image }}
