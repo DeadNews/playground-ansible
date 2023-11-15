@@ -4,6 +4,6 @@
   become: true
 
   tasks:
-    - name: Import Ansible role
-      ansible.builtin.import_role:
+    - name: Include Ansible role
+      ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"

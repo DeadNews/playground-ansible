@@ -4,6 +4,6 @@
   become: false
 
   tasks:
-    - name: Setup docker_app
+    - name: Deploy Docker App
       ansible.builtin.include_role:
         name: docker_app

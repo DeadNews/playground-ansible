@@ -15,4 +15,4 @@ lint:
 	poetry run ansible-lint
 
 tests:
-	cd roles/docker_app/ &&	poetry run molecule test -s docker_app
+	pushd roles/docker_app && poetry run molecule test -s docker_app; popd
