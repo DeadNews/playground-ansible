@@ -1,5 +1,5 @@
 install:
-	poetry install --sync --no-root
+	poetry install --no-root --sync
 	poetry run ansible-galaxy install -r requirements.yml
 
 poetry-up:

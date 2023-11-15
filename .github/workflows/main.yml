@@ -12,6 +12,7 @@ permissions:
   contents: read
 
 env:
+  ANSIBLE_HOME: .ansible
   PY_COLORS: "1"
 
 jobs:
