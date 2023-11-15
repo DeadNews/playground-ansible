@@ -63,6 +63,9 @@ jobs:
       - name: Show Vagrant version
         run: vagrant --version
 
+      - name: Run vagrant up
+        run: vagrant up
+
       - name: Run tests
         run: |
           cd roles/docker_app/
