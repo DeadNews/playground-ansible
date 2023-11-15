@@ -1,0 +1,11 @@
+---
+exclude_paths:
+  - .cache/
+  - .github/
+  - .pre-commit-config.yaml
+  - .prettierrc.yaml
+
+skip_list:
+  - name[play]
+  - package-latest
+  - yaml[indentation]

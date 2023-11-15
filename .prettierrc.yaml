@@ -1,0 +1,6 @@
+printWidth: 80
+overrides:
+  # default for ansible-lint
+  - files: "*.yml"
+    options:
+      printWidth: 160

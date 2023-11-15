@@ -1,0 +1,47 @@
+name: Main
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [created]
+
+permissions:
+  contents: read
+
+env:
+  ANSIBLE_HOME: ~/.ansible
+  PY_COLORS: "1"
+
+jobs:
+  lint:
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ansible reqs
+        id: cache-reqs
+        uses: actions/cache@v3
+        with:
+          key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
+          path: ${{ env.ANSIBLE_HOME }}/collections
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          cache: poetry
+
+      - name: Install deps
+        run: poetry install
+
+      - name: Install ansible reqs
+        if: steps.cache-reqs.outputs.cache-hit != 'true'
+        run: poetry run ansible-galaxy install -r requirements.yml
+
+      - name: Lint code
+        run: poetry run ansible-lint
