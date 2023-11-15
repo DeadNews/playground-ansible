@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v3
         with:
           key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
-          path: ${ANSIBLE_HOME}/collections
+          path: ${{ env.ANSIBLE_HOME }}/collections
 
       - name: Install poetry
         run: pipx install poetry
