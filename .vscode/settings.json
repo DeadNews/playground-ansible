@@ -14,7 +14,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "ansible.ansible.reuseTerminal": true,
-  // pytest
-  "python.testing.pytestEnabled": true
+  "ansible.ansible.reuseTerminal": true
 }

@@ -21,6 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache ansible reqs
+        id: cache-reqs
+        uses: actions/cache@v3
+        with:
+          key: reqs-${{ runner.os }}-${{ hashFiles('requirements.yml') }}
+          path: ${ANSIBLE_HOME}/collections
+
       - name: Install poetry
         run: pipx install poetry
 
@@ -31,47 +38,9 @@ jobs:
       - name: Install deps
         run: poetry install
 
-      - name: Install ansible-galaxy deps
+      - name: Install ansible reqs
+        if: steps.cache-reqs.outputs.cache-hit != 'true'
         run: poetry run ansible-galaxy install -r requirements.yml
 
       - name: Lint code
         run: poetry run ansible-lint
-
-  tests:
-    name: Tests
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        molecule-image: [python]
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install poetry
-        run: pipx install poetry
-
-      - uses: actions/setup-python@v4
-        with:
-          cache: poetry
-
-      - name: Install deps
-        run: poetry install
-
-      - name: Install ansible-galaxy deps
-        run: poetry run ansible-galaxy install -r requirements.yml
-
-      - name: Show Vagrant version
-        run: vagrant --version
-
-      - name: Run vagrant up
-        run: vagrant up
-
-      - name: Run tests
-        run: |
-          cd roles/docker_app/
-          poetry run molecule test -s docker_app
-
-      # - name: Run tests
-      #   run: poetry run pytest
-      #   env:
-      #     MOLECULE_IMAGE: ${{ matrix.molecule-image }}

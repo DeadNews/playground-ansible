@@ -6,7 +6,6 @@
     path: "{{ docker_compose_target_dir }}/{{ docker_compose_project }}"
     state: directory
     mode: "0700"
-    recurse: true
 
 - name: Copy Docker Compose project {{ docker_compose_project }}
   ansible.builtin.copy:
@@ -60,13 +59,3 @@
     - name: Print containers for Docker Compose project {{ docker_compose_project }}
       ansible.builtin.debug:
         var: docker_compose_ps.stdout
-
-- name: Verify that Docker Compose project is responding ー {{ docker_compose_project }}
-  ansible.builtin.uri:
-    url: "{{ item }}"
-  register: docker_compose_verify
-  retries: 5
-  delay: 8
-  until: docker_compose_verify is not failed
-  loop: "{{ docker_compose_verify_urls }}"
-  when: docker_compose_verify_urls is defined

@@ -22,8 +22,3 @@ argument_specs:
         type: str
         required: true
         description: The directory where the Docker Compose projects should be copied to.
-
-      docker_compose_verify_urls:
-        type: list
-        required: false
-        description: The list of links to check for response.
